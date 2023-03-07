@@ -1,10 +1,9 @@
 import 'dart:isolate';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:js';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +22,7 @@ class MainApp extends ConsumerWidget {
     return MaterialApp(
         title: 'Code Kid',
         // themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-        home: Text('hi')
+        home: Scaffold(body: Text('hi'))
         //TheApp(),
         // SandboxLauncher(
         //   app: TheApp(),
