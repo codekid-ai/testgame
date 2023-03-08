@@ -1,9 +1,12 @@
 import 'dart:isolate';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'dart:js';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'interop.dart';
 
 void saySomething(String arg) {
   print('Dart function called with argument: $arg');
@@ -14,6 +17,18 @@ void main() async {
   context['myDartFunction'] = allowInterop(saySomething);
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  FirebaseFirestore.instance
+      .collection('project/testgame/code')
+      .snapshots()
+      .listen((codes) => codes.docs.forEach((e) {
+            // print(e.data());
+            registerEvent(e.data()['handler'],
+                "try { \n ${e.data()['code']} \n } catch (e) { \n logError('${e.data()['handler']}', e); \n }");
+          }));
+
+  Interop.initLog(
+      FirebaseFirestore.instance.collection('project/testgame/output'));
 
   runApp(ProviderScope(child: MainApp()));
 }
