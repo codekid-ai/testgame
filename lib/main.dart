@@ -1,11 +1,13 @@
 import 'dart:isolate';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:js';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'firebase_options.dart';
 import 'interop.dart';
 
 void saySomething(String arg) {
@@ -17,6 +19,10 @@ void main() async {
   context['myDartFunction'] = allowInterop(saySomething);
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   FirebaseFirestore.instance
       .collection('project/testgame/code')
