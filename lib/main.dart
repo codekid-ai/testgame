@@ -11,7 +11,7 @@ import 'firebase_options.dart';
 import 'interop.dart';
 
 void saySomething(String arg) {
-  print('Dart function called with argument: $arg');
+  print('Dart function called with argument : $arg');
 }
 
 void main() async {
